@@ -1,0 +1,17 @@
+#!/bin/bash
+read oldrev newrev refname
+echo "Old rev: ${oldrev}"
+echo "New rev: ${newrev}"
+echo "Ref : ${refname}"
+echo "######################################################"
+echo "Checking for duplicated versions of Flywat scripts..."
+# put your grepping pattern below
+pattern = ""
+name = ""
+var=$(comm -3 <(git ls-tree --full-name --name-only -r ${oldrev} | grep ${pattern} | grep .sql$ | rev | cut -d "/" -f1 | rev) <(git ls-tree --full-name --name-only -r ${newrev} | grep ${pattern} | grep .sql$ | rev | cut -d "/" -f1 | rev) | sed 's/\t//g' | cut -d "_" -f1,2 | sort | uniq -d)
+if [[ ${var} != "" ]]; then
+        echo "GL-HOOK-ERR: There are duplicated versions of ${name} scripts: ${var}"
+        exit 1
+fi
+echo "There are no duplicated versions of ${name} scripts."
+exit 0
