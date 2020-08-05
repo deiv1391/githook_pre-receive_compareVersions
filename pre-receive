@@ -1,10 +1,11 @@
 #!/bin/bash
+# author: Dawid Koszowski | github.com/deiv1391
 read oldrev newrev refname
 echo "Old rev: ${oldrev}"
 echo "New rev: ${newrev}"
 echo "Ref : ${refname}"
 echo "######################################################"
-echo "Checking for duplicated versions of Flywat scripts..."
+echo "Checking for duplicated versions of ${name} scripts..."
 # put your grepping pattern below
 pattern = ""
 name = ""
